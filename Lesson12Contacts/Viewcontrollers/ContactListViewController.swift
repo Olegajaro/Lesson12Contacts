@@ -24,9 +24,10 @@ class ContactListViewController: UITableViewController {
         // для того чтобы получить значение по ключу
         // contactName получается опционального типа, поэтому нужно извлечь опционал
         // если значение будет не опциональным, то добавим его в массив contacts
-        if let contactName = UserDefaults.standard.string(forKey: "ContactName") {
-            contacts.append(contactName)
-        }
+//        if let contactName = UserDefaults.standard.string(forKey: "ContactName") {
+//            contacts.append(contactName)
+//        }
+        contacts = StorageManager.shared.fetchContacts()
     }
 
     // MARK: - Navigation    
@@ -58,7 +59,8 @@ class ContactListViewController: UITableViewController {
             // Для того, чтобы  удалялась не только строка с контактом, но и сам этот объект, который мы сохраняем
             // нужно в данном методе так же обратиться к экземпляру класса UserDefaults и вызвать у него метод removeObject
             // в который мы передаем ключ объекта
-            UserDefaults.standard.removeObject(forKey: "ContactName")
+//            UserDefaults.standard.removeObject(forKey: "ContactName")
+            StorageManager.shared.deleteContact(at: indexPath.row)
             contacts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

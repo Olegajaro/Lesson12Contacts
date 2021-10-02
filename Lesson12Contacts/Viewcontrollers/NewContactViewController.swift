@@ -45,7 +45,8 @@ class NewContactViewController: UIViewController {
         // для этого используем специальный класс UserDefaults, который является синглтоном
         // и у класса вызываем свойство standard, у которого вызываем свойство set для того, чтобы указать там сохраняемый объект и его ключ
         let fullName = "\(firstName) \(lastName)"
-        UserDefaults.standard.set(fullName, forKey: "ContactName")
+        StorageManager.shared.save(contact: fullName)
+//        UserDefaults.standard.set(fullName, forKey: "ContactName")
         
         delegate.saveContact(fullName)
         dismiss(animated: true)
