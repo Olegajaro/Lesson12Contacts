@@ -38,6 +38,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="zVZ-am-EJk" id="4jy-NK-1VJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFn-z2-63Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -71,8 +74,16 @@
                                 <rect key="frame" x="0.0" y="-12" width="414" height="56"/>
                                 <items>
                                     <navigationItem title="New Contact" id="eno-Zq-0sn">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="QaP-Qx-E0z"/>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="2rN-ya-GU5"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="QaP-Qx-E0z">
+                                            <connections>
+                                                <action selector="cancelButtonPressed:" destination="BYZ-38-t0r" id="kbH-aL-K1H"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="2rN-ya-GU5">
+                                            <connections>
+                                                <action selector="doneButtonPressed:" destination="BYZ-38-t0r" id="cBf-i1-DT3"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -105,6 +116,11 @@
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="doneButton" destination="2rN-ya-GU5" id="Siw-F9-qul"/>
+                        <outlet property="firstNameTextField" destination="mEW-Eo-NM1" id="cCj-Oq-ur7"/>
+                        <outlet property="lastNameTextField" destination="mnF-gx-ara" id="VVU-tL-u21"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
