@@ -18,6 +18,15 @@ class ContactListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // После того, как мы сохранили объект в UserDefaults, к нему нужно получить доступ,
+        // чтобы после перезапуска приложения мы видели что внесли
+        // для этого создаем константу и у экземпляра класса UserDefaults.standart вызываем метод string(forKey:)
+        // для того чтобы получить значение по ключу
+        // contactName получается опционального типа, поэтому нужно извлечь опционал
+        // если значение будет не опциональным, то добавим его в массив contacts
+        if let contactName = UserDefaults.standard.string(forKey: "ContactName") {
+            contacts.append(contactName)
+        }
     }
 
     // MARK: - Navigation    
@@ -46,6 +55,10 @@ class ContactListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle:
                             UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            // Для того, чтобы  удалялась не только строка с контактом, но и сам этот объект, который мы сохраняем
+            // нужно в данном методе так же обратиться к экземпляру класса UserDefaults и вызвать у него метод removeObject
+            // в который мы передаем ключ объекта
+            UserDefaults.standard.removeObject(forKey: "ContactName")
             contacts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
