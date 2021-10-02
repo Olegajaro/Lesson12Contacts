@@ -40,15 +40,11 @@ class NewContactViewController: UIViewController {
     private func saveAndExit() {
         guard let firstName = firstNameTextField.text else { return }
         guard let lastName = lastNameTextField.text else { return }
+         
+        let contact = Contact(name: firstName, surname: lastName)
+        StorageManager.shared.save(contact: contact)
         
-        // в приложении необходимо сохранять контакты
-        // для этого используем специальный класс UserDefaults, который является синглтоном
-        // и у класса вызываем свойство standard, у которого вызываем свойство set для того, чтобы указать там сохраняемый объект и его ключ
-        let fullName = "\(firstName) \(lastName)"
-        StorageManager.shared.save(contact: fullName)
-//        UserDefaults.standard.set(fullName, forKey: "ContactName")
-        
-        delegate.saveContact(fullName)
+        delegate.saveContact(contact)
         dismiss(animated: true)
     }
 }

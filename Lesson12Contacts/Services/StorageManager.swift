@@ -18,19 +18,19 @@ class StorageManager {
 
     // метод для добавление объекта в массив сохраняемых контактов
     // для начала восстанавливаем массив
-    func save(contact: String) {
+    func save(contact: Contact) {
         var contacts = fetchContacts()
         contacts.append(contact)
-        userDefaults.set(contacts, forKey: key)
+        guard let data = try? JSONEncoder().encode(contacts) else { return }
+        userDefaults.set(data, forKey: key)
     }
     
     // метод для загрузки данных
-    func fetchContacts() -> [String] {
-        if let contacts = userDefaults.value(forKey: key) as? [String] {
-            return contacts
-        }
+    func fetchContacts() -> [Contact] {
+        guard let data = userDefaults.data(forKey: key) else { return [] }
+        guard let contacts = try? JSONDecoder().decode([Contact].self, from: data) else { return [] }
         
-        return []
+        return contacts
     }
     
     // метод для удаления данных
@@ -40,6 +40,7 @@ class StorageManager {
     func deleteContact(at index: Int) {
         var contacts = fetchContacts()
         contacts.remove(at: index)
-        userDefaults.set(contacts, forKey: key)
+        guard let data = try? JSONEncoder().encode(contacts) else { return }
+        userDefaults.set(data, forKey: key)
     }
 }
